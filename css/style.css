@@ -1,0 +1,413 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400&family=Merriweather&display=swap');
+
+:root {
+        /* Fuentes*/
+        --textFont:  'Barlow Semi Condensed', sans-serif;
+
+        /* Colores*/
+        --bgColor-10: hsl(214, 47%, 23%);
+        --bgColor-20: hsl(237, 49%, 15%);
+
+        --scissors-10: hsl(40, 84%, 53%);
+        --scissors-20: hsl(39, 89%, 49%);
+        --scissors-30: hsl(28, 73%, 46%);
+
+        --rock-10: hsl(349, 70%, 56%);
+        --rock-20: hsl(349, 71%, 52%);
+        --rock-30: hsl(348, 74%, 36%);
+
+        --lizard-10: hsl(261, 72%, 63%);
+        --lizard-20:  hsl(261, 73%, 60%);
+        --lizard-30: hsl(260, 51%, 43%);
+
+
+        --paper-10:hsl(230, 89%, 65%);
+        --paper-20: hsl(230, 89%, 62%);
+        --paper-30: hsl(229, 63%, 45%);
+
+        --spock-10: hsl(189, 58%, 57%);
+        --spock-20: hsl(189, 59%, 53%);
+        --spock-30: hsl(194, 59%, 43%);
+
+        --white: rgb(248, 248, 248);
+        --grey: hsl(225, 18%, 87%);
+        --borderColor: hsl(217, 16%, 45%);
+        --darkTextColor: hsl(229, 25%, 31%);
+        --shadow: rgba(65, 65, 65, 0.459);
+}
+
+/* LAYOUT */
+
+body {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100vh;
+        font-family: var(--textFont);
+        font-size: 14px;
+        text-transform: uppercase;
+        background: radial-gradient(var(--bgColor-10), var(--bgColor-20));
+        overflow: hidden;
+
+}
+
+.header,
+.main,
+.footer {
+        display: flex;
+        justify-content: center;
+}
+
+.header {
+        height: fit-content;
+        margin: 2em;
+        padding: 1em;
+        border: .2em solid var(--borderColor);
+        border-radius: .3em;
+}
+
+.main {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        flex-direction: column;
+        align-items: center;
+}
+
+
+.footer {
+        padding: 1em;
+        margin-bottom: 3em;
+        align-items: center;
+}
+
+
+
+/* header */
+
+.title {
+        width: 70%;
+        padding-left: 1em;
+        font-size: 1em;
+        line-height: .9em;
+        word-spacing: 100vw;
+        color: var(--white);
+}
+
+.score__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 30%;
+        padding: .5em;
+        border-radius: .3em;
+        color: var(--darkTextColor);
+        background-color: var(--white);
+}
+
+
+
+
+/* JUEGO */
+
+/* Contenedor del juego */
+
+.play__container {
+        position: relative;
+        width: 350px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+}
+
+.plays {
+        width: 100%;
+        height: 50%;
+}
+
+.picks {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 10%;
+        padding: 0 3em;
+}
+
+.bg-pentagon {
+        position: absolute;
+        top: 1.5em;
+        transform: scale(.6);
+        z-index: -5;
+        opacity: 1;
+}
+
+.bg-pentagon.animate--scissors {
+        animation: fadePentagon 2.4s ease-in-out forwards;
+}
+
+.bg-pentagon.animate--paper {
+        animation: fadePentagon 1.8s ease-in-out forwards;
+}
+.bg-pentagon.animate--rock {
+        animation: fadePentagon 1.2s ease-in-out forwards;
+}
+.bg-pentagon.animate--lizard {
+        animation: fadePentagon .6s ease-in-out forwards;
+}
+
+
+
+/* Opciones de jugada*/
+
+.play {
+        border: 0;
+        outline: 0;
+        position: absolute;
+        width: 5.5em;
+        height: 5.5em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        overflow: hidden;
+        cursor: pointer;
+        transition: .6s ease-in-out all;
+}
+
+.play::after {
+        position: absolute;
+        width: 80%;
+        height: 80%;
+        content: "";
+        background-color: white;
+        border-radius: 50%;
+        box-shadow: inset 0em .3em 0em #E5E5E5;
+}
+
+
+.play:nth-child(1){
+        top: 4em;
+        left: calc(50% - 3em);
+        background: linear-gradient(to bottom, var(--scissors-10), var(--scissors-20));
+        box-shadow: inset 0em -.2em .1em var(--scissors-30);
+        
+}
+
+.play:nth-child(2){
+        top: calc(25% + 2em);
+        left: 2.5em;
+        background: linear-gradient(to bottom, var(--spock-10), var(--spock-20));
+        box-shadow: inset 0em -.2em .1em var(--spock-30);
+}
+.play:nth-child(3){
+        top: calc(25% + 2em);
+        right: 2.5em;
+        background: linear-gradient(to bottom, var(--paper-10), var(--paper-20));
+        box-shadow: inset 0em -.2em .1em var(--paper-30);
+        
+}
+.play:nth-child(4){
+        top: calc(50% + 3em);
+        left: 5em;
+        background: linear-gradient(to bottom, var(--lizard-10), var(--lizard-20));
+        box-shadow: inset 0em -.2em .1em var(--lizard-30);
+}
+.play:nth-child(5){
+        top: calc(50% + 3em);
+        right: 5em;
+        background: linear-gradient(to bottom, var(--rock-10), var(--rock-20));
+        box-shadow: inset 0em -.2em .1em var(--rock-30);
+}
+
+
+.play.animate--scissors {
+        animation: scissors 2.4s ease-in-out forwards;
+}
+
+
+.play.animate--paper {
+        animation: paper 1.8s ease-in-out forwards;
+}
+
+
+.play.animate--rock {
+        animation: rock 1.2s ease-in-out forwards;
+}
+
+
+.play.animate--lizard {
+        animation: lizard .6s ease-in-out forwards;
+}
+
+
+
+.move__option {
+        width: 80%;
+        height: 80%;
+        border-radius: 50%;
+        background-repeat: no-repeat;
+        background-size: 60%;
+        background-position: 50%;
+        z-index: 5;
+}
+
+.play:nth-child(1) .move__option {
+        background-image: url(/images/icon-scissors.svg);
+}
+
+.play:nth-child(2) .move__option {
+        background-image: url(/images/icon-spock.svg);
+}
+
+.play:nth-child(3) .move__option {
+        background-image: url(/images/icon-paper.svg);
+}
+
+.play:nth-child(4) .move__option {
+        background-image: url(/images/icon-lizard.svg);
+}
+
+.play:nth-child(5) .move__option {
+        background-image: url(/images/icon-rock.svg);
+}
+
+
+
+.move__option:hover{
+        animation: selectPlay 1s ease-in-out forwards;
+}
+
+
+.play.play--selected .move__option:hover {
+        animation: none;
+}
+
+.play.play--selected {
+        width: 7em;
+        height: 7em;
+}
+
+
+/* Resultado */
+
+
+.play__result {
+        background-color: lime;
+}
+
+/* Rules */
+
+.rules__btn {
+        outline: 0;
+        padding: .5em 2em;
+        border: .15em solid var(--white);
+        border-radius: .3em;
+        text-transform: uppercase;
+        color: var(--white);
+        background-color: transparent;
+}
+
+
+.modal__rules {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding: 5em 1em;
+        background-color: var(--white);
+        visibility: hidden;
+        transform: translateY(100%);
+        transition: 1s ease-in-out all;
+        z-index: 10;
+}
+
+.modal__rules.--active {
+        visibility: visible;
+        transform: translateY(0%);
+}
+
+
+
+.close__menu {
+        position: relative;
+        width: 1.6em;
+        height: 1.6em;
+        outline: 0;
+        border: 0;
+        background: 0;
+        cursor: pointer;
+}
+
+.line__menu {
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: .15em;
+        background-color: var(--grey);
+        left: calc(50% - 0.8em);
+}
+.line__menu:first-of-type {
+        transform: rotate(45deg);
+}
+
+.line__menu:last-of-type {
+        transform: rotate(-45deg);
+}
+
+
+
+
+/* ANIMACIONES */
+
+@keyframes selectPlay {
+        0%   { transform: rotate(0deg);}
+        15%  { transform: rotate(25deg);}
+        30%  { transform: rotate(0deg);}
+        45%  { transform: rotate(30deg);}
+        60%  { transform: rotate(0deg);}
+        80%  { transform: rotate(25deg);}
+        100% { transform: rotate(0deg);}
+}
+
+@keyframes fadePentagon {
+      0% {
+              opacity: 1;
+      }
+      100% {
+              opacity: 0;
+      }
+}
+
+@keyframes scissors {
+        0% { transform: translate(0);}
+        25% { transform: translate(7.5em, 4em);}
+        50% { transform: translate(5em, 11em);}
+        75% { transform: translate(-4.5em, 11em);} 
+        100% { transform: translate(-7em, 4em);}
+}
+
+@keyframes paper {
+        0% { transform: translate(0);}
+        33% { transform: translate(-2.5em, 7em);}
+        66% { transform: translate(-12em, 7em);}
+        100% { transform: translate(-14.5em, 0em);
+        }
+}
+
+@keyframes rock {
+        0% { transform: translate(0);}
+       50% { transform: translate(-9.5em, 0);}
+        100% { transform: translate(-12em, -7em);
+        }
+}
+
+@keyframes lizard {
+        0% { transform: translate(0);}
+        100% { transform: translate(-2.5em, -7em);
+        }
+}

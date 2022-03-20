@@ -1,0 +1,22 @@
+{
+  "name": "rock-paper-scissors-lizard-spock",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "javascript",
+    "i18n",
+    "html",
+    "css",
+    "game",
+    "rock-paper-scissors"
+  ],
+  "author": "Vanesa Rodríguez",
+  "license": "ISC",
+  "dependencies": {
+    "i18n": "^0.13.3"
+  }
+}

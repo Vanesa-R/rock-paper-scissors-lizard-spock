@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  
+  <header class="header">
+    <h1 class="title">Piedra papel tijera largato spock</h1>
+    <div class="score__container">
+      <span class="score__title">Score</span>
+      <span class="score__result"></span>
+    </div>
+
+  </header>
+
+  <main class="main">
+    <section class="play__container">
+      
+      <div class="plays">
+        
+        <button class="play play--unselected">
+          <div alt="scissors" class="move__option" data-btn-move="scissors"></div>
+        </button>
+        
+        <button class="play play--unselected">
+          <div alt="spock" class="move__option" data-btn-move="spock"></div>
+        </button>
+  
+        <button class="play play--unselected">
+          <div alt="paper" class="move__option" data-btn-move="paper"></div>
+        </button>
+  
+        <button class="play play--unselected">
+          <div alt="lizard" class="move__option" data-btn-move="lizard"></div>
+        </button>
+  
+  
+        <button class="play play--unselected">
+          <div alt="rock" class="move__option" data-btn-move="rock"></div>
+        </button>
+        
+      </div>
+
+      <div class="picks">
+        <p class="pick__player">Your picked</p>
+        <p class="pick__computer">The house picked</p>
+      </div>
+
+      <img src="/images/bg-pentagon.svg" class="bg-pentagon" alt="">
+
+    </section>
+
+    <section class="play__result">
+    <p>blablabla</p>
+    </section>
+  </main>
+  <footer class="footer">
+    <button class="rules__btn">Rules</button>
+  </footer>
+
+  <div class="modal__rules"></div>
+  <script src="js/script.js"></script>
+</body>
+</html>
