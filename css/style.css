@@ -42,14 +42,15 @@ body {
         display: flex;
         flex-direction: column;
         width: 100%;
-        height: 100vh;
+        min-height: 100vh;
+        height: 100%;
         font-family: var(--textFont);
         font-size: 14px;
         text-transform: uppercase;
         background: radial-gradient(var(--bgColor-10), var(--bgColor-20));
         overflow: hidden;
-
 }
+
 
 .header,
 .main,
@@ -60,7 +61,7 @@ body {
 
 .header {
         height: fit-content;
-        margin: 2em;
+        margin: 2em 1em 0em;
         padding: 1em;
         border: .2em solid var(--borderColor);
         border-radius: .3em;
@@ -76,9 +77,14 @@ body {
 
 
 .footer {
-        padding: 1em;
-        margin-bottom: 3em;
+        width: 100%;
+        padding: 1em 5em;
+        margin-bottom: 2em;
+        display: flex;
+        justify-content: space-evenly;
         align-items: center;
+        position: absolute;
+        bottom: 0em;
 }
 
 
@@ -97,16 +103,19 @@ body {
 .score__container {
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
         align-items: center;
         width: 30%;
-        padding: .5em;
+        padding: .6em;
         border-radius: .3em;
         color: var(--darkTextColor);
         background-color: var(--white);
 }
 
 
-
+.score__result {
+        font-size: 3em;
+}
 
 /* JUEGO */
 
@@ -115,7 +124,7 @@ body {
 .play__container {
         position: relative;
         width: 350px;
-        height: 100%;
+        height: 52vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -124,14 +133,15 @@ body {
 
 .plays {
         width: 100%;
-        height: 50%;
+        height: 45%;
+        animation: bodyFadeIn 1s ease-in;
 }
 
 .picks {
         display: flex;
         justify-content: space-between;
         width: 100%;
-        height: 10%;
+        height: fit-content;
         padding: 0 3em;
 }
 
@@ -141,20 +151,22 @@ body {
         transform: scale(.6);
         z-index: -5;
         opacity: 1;
+        animation: bodyFadeIn .6s ease-in;
+
 }
 
 .bg-pentagon.animate--scissors {
-        animation: fadePentagon 2.4s ease-in-out forwards;
+        animation: fadeOut 2.4s ease-in-out forwards;
 }
 
 .bg-pentagon.animate--paper {
-        animation: fadePentagon 1.8s ease-in-out forwards;
+        animation: fadeOut 1.8s ease-in-out forwards;
 }
 .bg-pentagon.animate--rock {
-        animation: fadePentagon 1.2s ease-in-out forwards;
+        animation: fadeOut 1.2s ease-in-out forwards;
 }
 .bg-pentagon.animate--lizard {
-        animation: fadePentagon .6s ease-in-out forwards;
+        animation: fadeOut .6s ease-in-out forwards;
 }
 
 
@@ -173,18 +185,19 @@ body {
         border-radius: 50%;
         overflow: hidden;
         cursor: pointer;
-        transition: .6s ease-in-out all;
 }
 
 .play::after {
         position: absolute;
+        content: "";
         width: 80%;
         height: 80%;
-        content: "";
         background-color: white;
         border-radius: 50%;
         box-shadow: inset 0em .3em 0em #E5E5E5;
 }
+
+
 
 
 .play:nth-child(1){
@@ -290,21 +303,56 @@ body {
 }
 
 
+.picks {
+        color: var(--white);
+}
+
+
 /* Resultado */
 
-
 .play__result {
-        background-color: lime;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        top: -2.5em;
+        padding: 0 1em;
+        color: var(--white);
+        height: 20%;
 }
+
+.result {
+        position: relative;
+        font-size: 2.5em;
+        font-weight: 700;
+        animation: fadeIn 400ms ease-in-out forwards;
+}
+
+.btn__play {
+        color: var(--darkTextColor);
+        background-color: var(--white);
+        margin: 1em 0;
+        padding: 1em 2em;
+        width: 60%;
+}
+
+
 
 /* Rules */
 
-.rules__btn {
+.btn {
         outline: 0;
-        padding: .5em 2em;
         border: .15em solid var(--white);
         border-radius: .3em;
         text-transform: uppercase;
+}
+
+.btn__rules,
+.btn__replay {
+        width: 6em;
+        padding: .5em 0em;
         color: var(--white);
         background-color: transparent;
 }
@@ -374,13 +422,32 @@ body {
         100% { transform: rotate(0deg);}
 }
 
-@keyframes fadePentagon {
+@keyframes fadeOut {
       0% {
               opacity: 1;
       }
       100% {
               opacity: 0;
       }
+}
+
+
+@keyframes bodyFadeIn {
+        0% {
+                opacity: 0;
+        }
+        100% {
+                opacity: 1;
+        }
+  }
+
+@keyframes fadeIn {
+        0% {
+                transform: scale(0);
+        }
+        100% {
+                transform: scale(1);
+        }
 }
 
 @keyframes scissors {
@@ -395,19 +462,23 @@ body {
         0% { transform: translate(0);}
         33% { transform: translate(-2.5em, 7em);}
         66% { transform: translate(-12em, 7em);}
-        100% { transform: translate(-14.5em, 0em);
+        100% { transform: translate(-13em, .2em);
         }
 }
 
 @keyframes rock {
         0% { transform: translate(0);}
        50% { transform: translate(-9.5em, 0);}
-        100% { transform: translate(-12em, -7em);
+        100% { transform: translate(-10.5em, -6.7em);
         }
 }
 
 @keyframes lizard {
         0% { transform: translate(0);}
-        100% { transform: translate(-2.5em, -7em);
+        100% { transform: translate(-2.5em, -6.7em);
         }
+}
+
+@keyframes pulse {
+
 }
