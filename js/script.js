@@ -1,9 +1,14 @@
 // DOM
 const playGround = document.querySelector(".play__container");
 const bgplayGround = document.querySelector(".bg-pentagon");
+const sectionPlays = document.querySelector(".plays");
+const sectionPicks = document.querySelector(".picks");
+const sectionResult = document.querySelector(".play__result");
 const options = document.querySelectorAll(".play");
-const rules = document.querySelector(".rules__btn");
+const scoreNum = document.querySelector(".score__result");
+const rules = document.querySelector(".btn__rules");
 const modal = document.querySelector(".modal__rules");
+const replay = document.querySelector(".btn__replay");
 
 
 
@@ -11,7 +16,23 @@ const modal = document.querySelector(".modal__rules");
 const plays = ["scissors", "paper", "rock", "lizard", "spock"];
 let optPlayer = "";
 let optComputer = "";
+let time = "";
+let result = "";
+let win = "You win";
+let lose = "You lose";
+let tie = "draw";
 
+
+
+
+// Score
+
+if (sessionStorage.getItem("counter") == null){
+       sessionStorage.setItem("counter", "0");
+}
+
+let score = Number(sessionStorage.getItem("counter"));
+scoreNum.textContent = score;
 
 
 const selectPlay = () => {
@@ -22,58 +43,73 @@ const selectPlay = () => {
                      
                      option.classList.remove("play--unselected");
                      option.classList.add("play--selected");
+
+                     if (option.classList.contains("play--selected")){
+                            option.disabled = "true";
+                     }
                      
                      optPlayer = option.childNodes[1].dataset.btnMove;
-                     
+
                      switch(optPlayer) {
                             case plays[0]:
                                    option.classList.add(`animate--${plays[0]}`);
                                    bgplayGround.classList.add(`animate--${plays[0]}`);
+                                   time = "2400";
                                    break;
                             case plays[1]:
                                    option.classList.add(`animate--${plays[1]}`);
                                    bgplayGround.classList.add(`animate--${plays[1]}`);
+                                   time = "1800";
                                    break;
                             case plays[2]:
                                    option.classList.add(`animate--${plays[2]}`);
                                    bgplayGround.classList.add(`animate--${plays[2]}`);
+                                   time = "1200";
                                    break;
                             case plays[3]:
                                    option.classList.add(`animate--${plays[3]}`);
                                    bgplayGround.classList.add(`animate--${plays[3]}`);
+                                   time = "600";
                                    break;
                             case plays[4]:
                                    option.classList.add(`animate--${plays[4]}`);
                                    bgplayGround.classList.add(`animate--${plays[4]}`);
+                                   time = "300";
                                    break;
-                                   
-                     }
-
-
-                     
-                     printPlaySelected();
-              })
+                            
+                            }
               
+                     printPlaySelected();
+                     
+                     setTimeout(() => {
+                            let text = document.createElement("p");
+                            text.textContent = `Your picked`;
+                            sectionPicks.appendChild(text);
+                     }, time);              
+              
+              })
+
        })
+
 }
 selectPlay();
 
 
 
 
-const randomPlay = () => {
+const getRandomPlay = () => {
 
        options.forEach(option => {
 
               option.addEventListener("click", () => {
 
                      
-                     
                      // Selección jugada ordenador
                      
-                     if (optPlayer !== ""){
+                     if ((optPlayer !== "") && (option.classList.contains("play--selected"))){
                             
                             let random = Math.round(Math.random()*4);
+
                             plays.forEach((el, index) => {
                                    if (random === index){
                                           optComputer = el;
@@ -82,30 +118,12 @@ const randomPlay = () => {
                      }
 
                      // Imprimir jugada ordenador
-                     
-                     let time = "";
-                     switch (optPlayer){
-                            case plays[0]:
-                                   time = "2400";
-                                   break;
-                            case plays[1]:
-                                   time = "1800";
-                                   break;
-                            case plays[2]:
-                                   time = "1200";
-                                   break;
-                            case plays[3]:
-                                   time = "600";
-                                   break;
-                            default:
-                                   time = "300";
-                     }
-
 
                      setTimeout(() => {
 
                             let randomPlay = document.createElement("button");
                             let img = document.createElement("div");
+                            let text = document.createElement("p");
 
                             randomPlay.classList.add("play");
                             randomPlay.classList.add("play--selected");
@@ -113,81 +131,170 @@ const randomPlay = () => {
 
                             randomPlay.style.top = "calc(25% + 2em)";
                             randomPlay.style.left = "calc(50% + 2.5em)";
-
                             randomPlay.style.background = `linear-gradient(to bottom, var(--${optComputer}-10), var(--${optComputer}-20))`;
+                            randomPlay.style.boxShadow = `inset 0em -.2em .1em var(--${optComputer}-30)`;
                             img.style.backgroundImage = `url('/images/icon-${optComputer}.svg')`;
-                            
+                            text.textContent = `The house picked`;
 
+                            sectionPicks.appendChild(text);
                             randomPlay.appendChild(img);
 
-                            playGround.appendChild(randomPlay);
+                            sectionPlays.appendChild(randomPlay);
+                            sectionPlays.classList.add("plays--selected")
 
                      }, time);
+
+
                         
+                     
                      
               })
        })
 
 }
 
-randomPlay();
+getRandomPlay();
 
 
 
-const resultPlay = () => {
+const letsPlay = () => {
        
-       if (optPlayer !== "") {
-              
-        
-              switch (optPlayer){
+       options.forEach(option => {
 
-
-                     case plays[0]:
-
-                            if (optComputer === plays[0]){
-                                   alert(`¡Empate!\nAmbos habéis seleccionado ${optPlayer.toUpperCase()}`)
-
-                            } else if (optComputer === plays[1]){
-                                   alert(`Has perdido.\n${optPlayer.toUpperCase()} es envuelta por ${optComputer.toUpperCase()}`)
-
-                            } else {
-                                   alert(`¡¡Has ganado!!\n${optPlayer.toUpperCase()} machaca ${optComputer.toUpperCase()}`)
-                            }
+              option.addEventListener("click", () => {
+                     
+                     if (optPlayer !== ""){
                             
-                            break;
+                            let text = document.createElement("p");
+                            let button = document.createElement("button");
 
-                     case plays[1]:
-                            if (optComputer === plays[1]){
-                                   alert(`¡Empate!\nAmbos habéis seleccionado ${optPlayer.toUpperCase()}`)
+                            text.classList.add("result");
+                            button.classList.add("btn", "btn__play");
+                            button.textContent = "Play again";
 
-                            } else if (optComputer === plays[0]){
-                                   alert(`¡¡Has ganado!!\n${optPlayer.toUpperCase()} envuelve ${optComputer.toUpperCase()}`)
-
-                            } else {
-                                   alert(`Has perdido.\n${optPlayer.toUpperCase()} es cortado por ${optComputer.toUpperCase()}`)
-                            }
                             
-                            break;
+                            
+                            time = parseInt(time) + 400;
+                            
+                            switch(optPlayer){
+                                   
+                                   case plays[0]:
 
-                     case plays[2]:
-                            if (optComputer === plays[2]){
-                                   alert(`¡Empate!\nAmbos habéis seleccionado ${optPlayer.toUpperCase()}`)
+                                          switch(optComputer){
+                                                 case plays[1]:
+                                                 case plays[3]:
+                                                        result = win;
+                                                        break;
+                                                 case plays[2]:
+                                                 case plays[4]:
+                                                        result = lose;
+                                                        break;
+                                                 default:
+                                                        result = tie;
+                                                 }
+                                          
+                                          break;
+                                   
+                                   case plays[1]:
+                                          
+                                          switch(optComputer){
+                                                 case plays[0]:
+                                                 case plays[3]:
+                                                        result = lose;
+                                                        break;
+                                                 case plays[2]:
+                                                 case plays[4]:
+                                                        result = win;
+                                                        break;
+                                                 default:
+                                                        result = tie;
+                                          }
+                                          break;
+                             
+                                   case plays[2]:
+                                          
+                                          switch(optComputer){
+                                                 case plays[0]:
+                                                 case plays[3]:
+                                                        result = win;
+                                                        break;
+                                                 case plays[1]:
+                                                 case plays[4]:
+                                                        result = lose;
+                                                        break;
+                                                 default:
+                                                        result = tie;
+                                          }
+                                          break;
+                                   
+                                   case plays[3]:
 
-                            } else if (optComputer === plays[0]){
-                                   alert(`Has perdido.\n${optPlayer.toUpperCase()} es machacada por ${optComputer.toUpperCase()}`)
+                                          switch(optComputer){
+                                                 case  plays[0]:
+                                                 case plays [2]:
+                                                        result = lose;
+                                                        break;
+                                                 case plays[1]:
+                                                 case plays[4]:
+                                                        result = win;
+                                                        break;
+                                                 default:
+                                                        result = tie;
+                                          }
 
-                            } else {
-                                   alert(`¡¡Has ganado!!\n${optPlayer.toUpperCase()} corta ${optComputer.toUpperCase()}`)
-                            }
-                            break;
+                                          break;
+                            
+                                   case plays[4]:
+                                          
+                                          switch(optComputer){
+                                                 case plays[0]:
+                                                 case plays[2]:
+                                                        result = win;
+                                                        break;
+                                                 case plays[1]:
+                                                 case plays[3]:
+                                                        result = lose;
+                                                        break;
+                                                 default:
+                                                        result = tie;
+                                          }
+                                          break;
 
-                     default:
-                            alert("Selecciona una opción entre piedra papel o tijera")
-              }
-       }
+                                   }
+                                   
+                                   if (result == win) {
+                                          sessionStorage.setItem("counter", score + 1);
+                                          
+                                          setTimeout(() => {
+                                                 scoreNum.textContent = score + 1;
+                                          }, time);
+                                   }
+                                  
+
+
+                            setTimeout(() => {
+
+                                   text.textContent = result;
+                                   sectionResult.appendChild(text);
+                                   sectionResult.appendChild(button)
+       
+                            }, time);
+
+
+
+                            // Repetir jugada
+
+                            button.addEventListener("click", () => {
+                                   location.reload();                            
+                            })
+                            
+                     }
+              })
+       })
+
+
 }
-resultPlay();
-
+letsPlay();
 
 
 
@@ -231,11 +338,13 @@ const showRules = () => {
                      
                             close.addEventListener("click", () => {
                                    modal.classList.remove("--active");
+
+                                   setTimeout(() => {
+                                          modal.removeChild(close);
+                                          modal.removeChild(img);
+                                          modal.removeChild(subtitle);
+                                   }, 600);  
                                    
-                                   
-                                   modal.removeChild(close);
-                                   modal.removeChild(img);
-                                   modal.removeChild(subtitle);
                             })
               }
 
@@ -255,10 +364,21 @@ const printPlaySelected = () => {
               if (option.classList.contains("play--selected")){
 
                      option.style.display = "flex";
+                     option.style.transition = `${time}ms ease-in-out all`;
                      
               }
               else {
-                    option.style.display = "none";
+                   option.style.display = "none";
               }
        })
 }
+
+const getReplay = () => {
+       replay.addEventListener("click", () => {
+              console.log("click")
+              sessionStorage.removeItem("counter");
+              scoreNum.textContent = 0;
+              location.reload();
+       })
+}
+getReplay();
