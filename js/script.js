@@ -35,6 +35,8 @@ let score = Number(sessionStorage.getItem("counter"));
 scoreNum.textContent = score;
 
 
+
+
 const selectPlay = () => {
 
        options.forEach(option => {
@@ -119,6 +121,8 @@ const getRandomPlay = () => {
 
                      // Imprimir jugada ordenador
 
+                     time = parseInt(time) + 300;                     
+
                      setTimeout(() => {
 
                             let randomPlay = document.createElement("button");
@@ -126,15 +130,22 @@ const getRandomPlay = () => {
                             let text = document.createElement("p");
 
                             randomPlay.classList.add("play");
-                            randomPlay.classList.add("play--selected");
+                            randomPlay.classList.add("play--picked-house");
                             img.classList.add("move__option");
+                            
+                            setInterval(() => {
+                                   randomPlay.classList.remove("play--picked-house");
+                                   randomPlay.classList.add("play--selected");
+                                   randomPlay.style.background = `linear-gradient(to bottom, var(--${optComputer}-10), var(--${optComputer}-20))`;
+                                   randomPlay.style.boxShadow = `inset 0em -.2em .1em var(--${optComputer}-30)`;
+                                   img.style.backgroundImage = `url('/images/icon-${optComputer}.svg')`;
+                                   text.textContent = `The house picked`;
 
+                            }, 300);
+                            
+                            randomPlay.style.background = `var(--bgColor-10)`
                             randomPlay.style.top = "calc(25% + 2em)";
                             randomPlay.style.left = "calc(50% + 2.5em)";
-                            randomPlay.style.background = `linear-gradient(to bottom, var(--${optComputer}-10), var(--${optComputer}-20))`;
-                            randomPlay.style.boxShadow = `inset 0em -.2em .1em var(--${optComputer}-30)`;
-                            img.style.backgroundImage = `url('/images/icon-${optComputer}.svg')`;
-                            text.textContent = `The house picked`;
 
                             sectionPicks.appendChild(text);
                             randomPlay.appendChild(img);
@@ -267,7 +278,10 @@ const letsPlay = () => {
                                           
                                           setTimeout(() => {
                                                  scoreNum.textContent = score + 1;
+                                                 option.style.boxShadow = `inset 0em -.2em .1em #00000040, 0 0 0 1.5em #ffffff0d, 0 0 0 3em #ffffff0d, 0 0 0 5em #ffffff0d`;
+                                                 option.style.animation = `${optPlayer} ease-in-out forwards, pulse 1.2s infinite normal ease-in-out`;
                                           }, time);
+                            
                                    }
                                   
 
@@ -318,7 +332,7 @@ const showRules = () => {
                      
                      const img =  document.createElement("img");
                      img.classList.add("img__rules");
-                     img.setAttribute("src", "images/image-rules-bonus.svg");
+                     img.setAttribute("src", "/images/image-rules-bonus.svg");
                      modal.appendChild(img);
                      
                      /* BTN Close*/

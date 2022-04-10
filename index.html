@@ -3,18 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  <link rel="stylesheet" href="css/normalize.css">
+  <title>Rock, paper, scissors, lizard, Spock</title>
+  <link rel="stylesheet" href="css/normalize.min.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&display=swap" rel="stylesheet">
+  <meta name="description" content="Rock-paper-scissors Game. This version adds lizard-Spock from the 'Big Bang Theory' series">
+  <meta name="robots" content="index follow">
+  <meta name="author" content="Vanesa Rodríguez">
 </head>
 <body>
 
   
   <header class="header">
-    <h1 class="title">Piedra papel tijera largato spock</h1>
+    <h1 class="title">Rock paper scissors lizard spock</h1>
     <div class="score__container">
       <span class="score__title">Score</span>
       <span class="score__result"></span>
@@ -27,24 +30,24 @@
       
       <div class="plays">
         
-        <button class="play play--unselected">
+        <button class="play play--unselected" aria-label="Select scissors">
           <div alt="scissors" class="move__option" data-btn-move="scissors"></div>
         </button>
         
-        <button class="play play--unselected">
+        <button class="play play--unselected" aria-label="Select Spock">
           <div alt="spock" class="move__option" data-btn-move="spock"></div>
         </button>
   
-        <button class="play play--unselected">
+        <button class="play play--unselected" aria-label="Select paper">
           <div alt="paper" class="move__option" data-btn-move="paper"></div>
         </button>
   
-        <button class="play play--unselected">
+        <button class="play play--unselected" aria-label="Select lizard">
           <div alt="lizard" class="move__option" data-btn-move="lizard"></div>
         </button>
   
   
-        <button class="play play--unselected">
+        <button class="play play--unselected" aria-label="Select rock">
           <div alt="rock" class="move__option" data-btn-move="rock"></div>
         </button>
         
